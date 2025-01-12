@@ -1,4 +1,5 @@
-import { describe, beforeEach, it, expect } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+
 import { TestFactory } from './helpers/TestFactory';
 import type { TestFixtures } from './helpers/TestFactory';
 

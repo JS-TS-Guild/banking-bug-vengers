@@ -1,7 +1,8 @@
-import User from '@/models/user';
-import Bank from '@/models/bank';
 import { BankAccountId, UserId } from '@/types/Common';
+
+import Bank from '@/models/bank';
 import GlobalRegistry from '@/services/GlobalRegistry';
+import User from '@/models/user';
 
 export interface TestFixtures {
   alice: User;
@@ -29,6 +30,11 @@ export class TestFactory {
     const alice = User.create('Alice', [aliceAccount.getId(), aliceAccountAllowsNegative.getId()]);
     const bob = User.create('Bob', [bobAccount.getId()]);
 
+    GlobalRegistry.registerBank(bank);
+    GlobalRegistry.registerBank(bankAllowsNegative);
+    GlobalRegistry.registerUser(alice);
+    GlobalRegistry.registerUser(bob);
+    
     return {
       alice,
       aliceUserId: alice.getId(),
