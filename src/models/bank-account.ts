@@ -1,21 +1,37 @@
+import { BankAccountId, BankId } from '@/types/Common';
+
+import { v4 as uuidv4 } from 'uuid';
+
 class BankAccount {
-  private static idCounter = 1;
-  private id: number;
-  private bankId: number;
+  private id: BankAccountId;
+  private bankId: BankId;
   private balance: number;
 
-  private constructor(bankId: number, balance: number) {
-    this.id = BankAccount.idCounter++;
+  private constructor(bankId: BankId, balance: number) {
+    this.id = uuidv4();
     this.bankId = bankId;
     this.balance = balance;
   }
 
-  static create(bankId: number, balance: number): BankAccount {
-    return new BankAccount(bankId, balance);
+  static create(bankId: BankId, balance: number): BankAccount {
+    const account = new BankAccount(bankId, balance);
+    return account;
   }
 
-  getId(): number {
+  getId(): BankAccountId {
     return this.id;
+  }
+
+  getBankId(): BankId {
+    return this.bankId;
+  }
+
+  getBalance(): number {
+    return this.balance;
+  }
+
+  setBalance(amount: number): void {
+    this.balance = amount;
   }
 }
 
