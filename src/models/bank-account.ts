@@ -1,38 +1,45 @@
-import { BankAccountId, BankId } from '@/types/Common';
+import { BankAccountId, BankId } from "@/types/Common";
 
-import { v4 as uuidv4 } from 'uuid';
+import GlobalRegistry from "@/services/GlobalRegistry";
+import { v4 as uuidv4 } from "uuid";
 
-class BankAccount {
+export default class BankAccount {
   private id: BankAccountId;
-  private bankId: BankId;
   private balance: number;
+  private bankId: BankId;
 
-  private constructor(bankId: BankId, balance: number) {
-    this.id = uuidv4();
+  private constructor(id: BankAccountId, initialBalance: number, bankId: BankId) {
+    this.id = id;
+    this.balance = initialBalance;
     this.bankId = bankId;
-    this.balance = balance;
   }
 
-  static create(bankId: BankId, balance: number): BankAccount {
-    const account = new BankAccount(bankId, balance);
+  static create(initialBalance: number, bankId: BankId): BankAccount {
+    const account = new this(uuidv4(), initialBalance, bankId);
+    GlobalRegistry.registerAccount(account);
     return account;
   }
-
   getId(): BankAccountId {
     return this.id;
-  }
-
-  getBankId(): BankId {
-    return this.bankId;
   }
 
   getBalance(): number {
     return this.balance;
   }
 
+  getBankId(): BankId {
+    return this.bankId;
+  }
+
   setBalance(amount: number): void {
     this.balance = amount;
   }
-}
 
-export default BankAccount;
+  deposit(amount: number): void {
+    this.balance += amount;
+  }
+
+  withdraw(amount: number): void {
+    this.balance -= amount;
+  }
+}
