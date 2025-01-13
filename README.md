@@ -1,3 +1,5 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/W3nV4mdD)
+
 # Banking management
 
 ## Overview
@@ -16,7 +18,7 @@ We are going to code up a banking management system using TypeScript and basic O
 ## Rules
 
 - Use pnpm as the package manager
-- Don't change anything in package.json, __tests__ or .github/workflows (Those assignments will be disqualified for grading and evaluation)
+- Don't change anything in package.json, **tests** or .github/workflows (Those assignments will be disqualified for grading and evaluation)
 - You can form a team of 2-3 people and submit the solution
 - There will be 3 levels of evaluation:
   - Simple: 2 points
