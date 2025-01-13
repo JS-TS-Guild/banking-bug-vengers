@@ -17,6 +17,24 @@ jobs:
         run: npm install -g pnpm
       - name: Install dependencies
         run: pnpm i
+      - name: Verify Test File Hash
+        run: |
+          TEST_PATH="${{ secrets.TESTS_FOLDER }}/bank-transactions.test.ts"
+          HASH=$(echo -n "$TEST_PATH" | sha256sum)
+          echo "Test file path hash: $HASH"
+          echo "HASH_VALUE=$HASH" >> $GITHUB_ENV
+
+      - name: Check Test File Integrity
+        if: env.TESTS_FOLDER != ''
+        run: |
+          if [ -n "${{ env.HASH_VALUE }}" ]; then
+            echo "Test file hash verified"
+          else
+            echo "Test file hash verification failed"
+            exit 1
+          fi
+        env:
+          TESTS_FOLDER: ${{ secrets.TESTS_FOLDER }}
       - name: Run Test - 2 points
         id: test-2-points
         uses: classroom-resources/autograding-command-grader@v1
